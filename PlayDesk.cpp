@@ -64,7 +64,6 @@ PlayDesk::PlayDesk(char *filename)    // suggest that input is correct!!! Use on
 	FILE.close();
 }
 
-
 void PlayDesk::Show()
 {
 	for (int i = 0; i < size; i++)
@@ -138,7 +137,62 @@ bool PlayDesk::MakeStep(int value, char direction)
 		cout << "Incorrect step!\n";
 		return false;
 		break;
+	} 
+}
+
+bool PlayDesk::MakeStep(int value)
+{
+	FindPos(value);
+	if (!((curI == posI) || (curJ == posJ)))
+	{
+		cout << "Incorrect step!\n";
+		return 0;
 	}
+
+	if (curI == posI)
+	{
+		int temp = abs(curJ - posJ);
+		if (curJ < posJ)
+		{
+			while (temp > 0)
+			{
+				DoSwap(posI, posJ - 1);
+				temp--;
+			}
+		}
+
+		if (curJ > posJ)
+		{
+			while (temp > 0)
+			{
+				DoSwap(posI, posJ + 1);
+				temp--;
+			}
+		}
+	}
+
+	if (curJ == posJ)
+	{
+		int temp = abs(curI - posI);
+		if (curI < posI)
+		{
+			while (temp > 0)
+			{
+				DoSwap(posI - 1, posJ);
+				temp--;
+			}
+		}
+
+		if (curI > posI)
+		{
+			while (temp > 0)
+			{
+				DoSwap(posI + 1, posJ);
+				temp--;
+			}
+		}
+	}
+	return 1;
 }
 
 bool PlayDesk::IsWin()
@@ -174,6 +228,14 @@ inline bool PlayDesk::DoSwap()
 {
 	swap(desk[curI][curJ], desk[posI][posJ]);
 	swap(curI, posI); swap(curJ, posJ);
+	system("cls");
+	return true;
+}
+
+inline bool PlayDesk::DoSwap(int i, int j)
+{
+	swap(desk[i][j], desk[posI][posJ]);
+	swap(i, posI); swap(j, posJ);
 	system("cls");
 	return true;
 }

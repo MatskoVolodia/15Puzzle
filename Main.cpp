@@ -16,7 +16,7 @@ int main()
 {
 	PlayDesk Game;
 	//PlayDesk Game("almostdone.txt");
-	UFI(3);
+	/*UFI(3);
 	while (!(Game.IsWin()))
 	{
 		UFI(0);
@@ -27,6 +27,31 @@ int main()
 			UFI(1);
 			cin >> val >> direc;
 		} while (!Game.MakeStep(val, direc));
+	}
+	UFI(2);
+	Game.Show();*/
+
+	while (!(Game.IsWin()))
+	{
+		UFI(0);
+		Game.Show();
+		int val;
+		do
+		{
+			UFI(1);
+			cin >> val;
+			if ((cin.fail() || (val < 1) || (val > 15)))
+			{
+				do
+				{
+					cout << "Incorrect input! \n";
+					UFI(1);
+					cin.clear();
+					cin.sync();
+					cin >> val;
+				} while ((cin.fail() || (val < 1) || (val > 15)));
+			}
+		} while (!Game.MakeStep(val));
 	}
 	UFI(2);
 	Game.Show();
